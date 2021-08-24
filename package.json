@@ -1,0 +1,14 @@
+{
+  "name": "combinatorics.js-bigquery",
+  "version": "1.5.3",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "combinatorics.js": "1.5.3"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}
