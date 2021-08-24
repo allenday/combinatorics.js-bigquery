@@ -15,10 +15,12 @@ CREATE TEMP FUNCTION combination_ith(seed STRING, k NUMERIC, i NUMERIC)
 OPTIONS(library="gs://.../combinatorics.js");
 
 --choose(["a","b","c","d","e"],3)
-WITH combination AS (
-    SELECT * FROM UNNEST(GENERATE_ARRAY(0, combination_size(LENGTH("abcde"), 3)-1, 1)) AS i
+
+WITH elements AS (
+    SELECT ['a','b','c','d','e'] AS e
+),
+combination AS (
+    SELECT * FROM elements, UNNEST(GENERATE_ARRAY(0, combination_size(ARRAY_LENGTH(elements.e), 3)-1, 1)) AS i
 )
-SELECT combination.i, combination_ith("abcde", 3, combination.i) AS combo
-FROM combination;
-
-
+SELECT combination.i, combination_ith(elements.e, 3, combination.i) AS combo
+FROM elements, combination;
