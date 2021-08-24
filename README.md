@@ -6,9 +6,7 @@ CREATE TEMP FUNCTION combination_size(n NUMERIC, k NUMERIC) RETURNS NUMERIC LANG
 """
 OPTIONS(library="gs://.../combinatorics.js");
 
-CREATE TEMP FUNCTION combination_ith(seed STRING, k NUMERIC, i NUMERIC)
-  RETURNS ARRAY<STRING>
-  LANGUAGE js AS """
+CREATE TEMP FUNCTION combination_ith(seed ARRAY<STRING>, k NUMERIC, i NUMERIC) RETURNS ARRAY<STRING> LANGUAGE js AS """
     let it = combinatorics.Combination.of(seed, k);
     return it.nth(i);
 """
@@ -25,5 +23,4 @@ combination AS (
 )
 SELECT combination.i, combination_ith(elements.e, choose.k, combination.i) AS combo
 FROM choose, elements, combination;
-
-
+```
